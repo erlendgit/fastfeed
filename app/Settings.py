@@ -9,6 +9,7 @@ class Settings(BaseSettings):
     name: str = Field(...)
     sources: List[str] = Field(...)
     redis_port: int = Field(...)
+    clearcache: str = Field(...)
 
 
 settings_instance = None

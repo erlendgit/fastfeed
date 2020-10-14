@@ -22,8 +22,12 @@ class FastfeedDb:
     def load(self, key):
         return pickle.loads(self.db.get(key))
 
-    def store(self, key, value, ex=None):
-        self.db.set(key, pickle.dumps(value), ex=ex)
+    def store(self, key, value):
+        self.db.set(key, pickle.dumps(value))
+        self.db.persist(key)
 
     def expired(self, key):
-        return self.db.ttl(key) < 1
+        return not self.db.exists(key)
+
+    def clear_all(self):
+        self.db.flushall()

@@ -3,9 +3,12 @@ from datetime import datetime
 
 from starlette.templating import Jinja2Templates
 
+from settings import settings
+
 __all__ = ('render',)
 
 templates = Jinja2Templates(directory="templates")
+templates.env.globals['settings'] = settings
 
 
 def register_filter(func):
@@ -29,5 +32,4 @@ Filters follow:
 
 @register_filter
 def format_datetime(value: datetime):
-    return value.strftime('%d %B %H:%M')
-
+    return value.strftime('%-d %B, %-H:%M')

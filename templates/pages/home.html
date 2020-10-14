@@ -1,18 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %}De feedshow!{% endblock %}
+{% block title %}{{ settings.name }}{% endblock %}
 
 {% block header %}
-<h1>Welkom bij de feedshow :-)))</h1>
+    <h1 class="py-3 m-0">{{ settings.name }}</h1>
 {% endblock %}
 {% block content %}
-<div class="articles">
-    {% for article in articles %}
-    {% include "snippets/article.html" %}
-    {% endfor %}
-</div>
-<aside>
+    <h3>Articles</h3>
+    <div class="articles">
+        {% for article in articles %}
+            {% include "snippets/article.html" %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    <h3>Sites</h3>
     {% set links = feeds %}
     {% include "snippets/link-block.html" %}
-</aside>
+
 {% endblock %}

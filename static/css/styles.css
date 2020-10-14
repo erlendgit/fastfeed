@@ -1,0 +1,16 @@
+a {
+    color: #555;
+}
+
+header h1 {
+    font-size: 1.75rem;
+}
+
+#page {
+    padding-bottom: 12rem;
+}
+.container-fullwidth {
+    background-color: #CCC;
+    margin-bottom: 1rem;
+}
+
