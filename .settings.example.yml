@@ -1,0 +1,6 @@
+name: "Fast feed!"
+redis_port: 6379
+sources:
+  - 'https://www.xkcd.com/rss.xml'
+  - 'https://css-tricks.com/feed/'
+  - 'https://simpleprogrammer.com/feed/'

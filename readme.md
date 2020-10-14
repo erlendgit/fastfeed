@@ -59,3 +59,12 @@ $ . ./bin/init.sh
   * Invoer oude wachtwoord.
   * Bestandje hernoemen.
 * Inloggen verplicht.
+
+
+
+## Interessante bronnen
+
+* Meerdere redis instanties op de mac:
+  * https://jeremy.wordpress.com/2012/07/05/multiple-redis-instances-on-mac-os-x-with-homebrew/
+* Meerdere redis instanties op ubuntu server:
+  * 

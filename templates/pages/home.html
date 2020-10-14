@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}De feedshow!{% endblock %}
+
+{% block header %}
+<h1>Welkom bij de feedshow :-)))</h1>
+{% endblock %}
+{% block content %}
+<div class="articles">
+    {% for article in articles %}
+    {% include "snippets/article.html" %}
+    {% endfor %}
+</div>
+<aside>
+    {% set links = feeds %}
+    {% include "snippets/link-block.html" %}
+</aside>
+{% endblock %}
