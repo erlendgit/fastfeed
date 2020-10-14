@@ -1,4 +1,4 @@
-from app.FastfeedStore import FastfeedStore
+from app.FastfeedDb import FastfeedDb
 
 
 class TempStore:
@@ -8,7 +8,7 @@ class TempStore:
 
     def __call__(self, f):
         def calling_function(*args, **kwargs):
-            db = FastfeedStore.instance()
+            db = FastfeedDb.instance()
             if db.expired(self.dataKey):
                 db.store(self.dataKey, f(*args, **kwargs), ex=self.expire)
             return db.load(self.dataKey)

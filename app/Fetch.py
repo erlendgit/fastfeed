@@ -13,7 +13,7 @@ class Fetch(object):
     def __init__(self, sources: Iterable[str]):
         self.sources = sources
 
-    @TempStore('fetch_feed_articles', expire=300)
+    @TempStore('fetch_feed_articles', expire=3600)
     def get_articles(self):
         feeds = []
         articles = []

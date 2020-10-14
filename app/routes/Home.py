@@ -13,14 +13,6 @@ async def home_page(request: Request):
     articles, feeds = Fetch(settings.sources).get_articles()
     return render('pages/home.html', {
         'request': request,
-        'articles': articles,
-        'feeds': feeds
-    })  # articles
-
-# @router.get('/', response_class=HTMLResponse)
-# async def home_page(request: Request):
-#     articles, feeds = Fetch(settings.sources).get_articles()
-#     return render('index.html', {
-#         'request': request,
-#         'articles': sorted(articles, key=lambda a: a.sort_key(), reverse=True)
-#     })
+        'articles': sorted(articles, key=lambda x: x.sort_key(), reverse=True),
+        'feeds': sorted(feeds, key=lambda x: x.title)
+    })

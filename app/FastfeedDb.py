@@ -3,7 +3,11 @@ import redis, pickle
 from settings import settings
 
 
-class FastfeedStore:
+class FastfeedDb:
+    """ To clear all keys:
+        $ redis-cli flushall
+    """
+
     _instance = None
 
     @classmethod
