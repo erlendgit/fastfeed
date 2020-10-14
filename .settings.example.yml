@@ -1,5 +1,6 @@
 name: "Fast feed!"
 redis_port: 6379
+clearcache: "only-the-server-knows-this-key"
 sources:
   - 'https://www.xkcd.com/rss.xml'
   - 'https://css-tricks.com/feed/'
