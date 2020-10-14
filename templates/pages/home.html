@@ -20,3 +20,7 @@
     {% include "snippets/link-block.html" %}
 
 {% endblock %}
+
+{% block bottom %}
+    <script language="JavaScript" src="{{ url_for('static', path="js/noteworthy.js") }}"></script>
+{% endblock %}

@@ -7,6 +7,6 @@ from pydantic import BaseModel, Field
 class FeedParserArticle(BaseModel):
     title: str = Field(...)
     link: str = Field(...)
-    published: Optional[datetime] = Field(None)
-    site_name: str = Field(...)
-    site_url: str = Field(...)
+    published: datetime = Field(...)
+    site_name: Optional[str] = Field(None)
+    site_url: Optional[str] = Field(None)

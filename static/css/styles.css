@@ -9,8 +9,14 @@ header h1 {
 #page {
     padding-bottom: 12rem;
 }
+
 .container-fullwidth {
-    background-color: #CCC;
+    background-color: #fdb35a;
     margin-bottom: 1rem;
 }
 
+.article {
+}
+.article.special {
+    background-color: #fee6c8;
+}
