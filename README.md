@@ -1,6 +1,6 @@
 # Fastfeed
 
-Een feed-collector, jaja. Weer een feed collector.
+Een feed-collector. Beschikbaar op https://fastfeed.stgenv.nl.
 
 * Bewaar alleen de meest recente artikelen van alle feeds.
   * De oudere items lees ik toch niet terug
