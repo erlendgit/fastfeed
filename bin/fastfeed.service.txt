@@ -1,5 +1,6 @@
 # Example systemd service file.
 # see also https://github.com/encode/uvicorn/issues/678
+[Unit]
 Description=Fastfeed Python Application
 After=network.target
 StartLimitIntervalSec=0
