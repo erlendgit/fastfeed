@@ -1,0 +1,22 @@
+# Example systemd service file.
+# see also https://github.com/encode/uvicorn/issues/678
+Description=Fastfeed Python Application
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=notify
+ExecStart=[path-to-project]/.venv/bin/uvicorn main.app --port 50500 --host 127.0.0.1
+User=fastfeed
+Group=fastfeed
+RuntimeDirectory=/var/run/fastfeed
+WorkingDirectory=[path-to-project]
+ExecReload=/bin/kill -s HUP $MAINPID
+KillMode=mixed
+TimeoutStopSec=5
+PrivateTmp=true
+RestartSec=1
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
