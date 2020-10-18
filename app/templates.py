@@ -9,7 +9,7 @@ __all__ = ('render',)
 
 templates = Jinja2Templates(directory="templates")
 templates.env.globals['settings'] = settings
-
+templates.env.auto_reload = False
 
 def register_filter(func):
     templates.env.filters[func.__name__] = func
