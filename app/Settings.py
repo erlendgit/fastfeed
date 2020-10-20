@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, List
+from typing import List, Optional
 
 import yaml
 from pydantic import BaseSettings, Field
@@ -7,6 +7,7 @@ from yaml import Loader
 
 class Settings(BaseSettings):
     name: str = Field(...)
+    debug: Optional[int] = Field(None)
     sources: List[str] = Field(...)
     redis_port: int = Field(...)
     clearcache: str = Field(...)

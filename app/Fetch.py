@@ -15,26 +15,33 @@ class Fetch(object):
     def __init__(self, sources: Iterable[str]):
         self.sources = sources
 
-    @TempStore('fetch_feed_articles')
     def get_articles(self):
         feeds = []
         articles = []
         for source in self.sources:
-            try:
-                print("Parse %s" % source)
-                result = feedparser.parse(source)
-                feed = FeedParserResource(
-                    feed_url=source,
-                    url=result['feed']['link'],
-                    title=result['feed']['title'])
-                feeds.append(feed)
-                for article in self.entries_to_articles(result.get('entries', []))[0:3]:
-                    article.site_name = feed.title
-                    article.site_url = feed.url
-                    articles.append(article)
-            except URLError as e:
-                pass
+            new_articles, new_feed = self.fetch_source(source)
+            articles.extend(new_articles)
+            feeds.append(new_feed)
         return articles, feeds
+
+    @TempStore(dataKey='fetch_source')
+    def fetch_source(self, source):
+        try:
+            articles = list()
+            print("Parse %s" % source)
+            result = feedparser.parse(source)
+            feed = FeedParserResource(
+                feed_url=source,
+                url=result['feed']['link'],
+                title=result['feed']['title'])
+
+            for article in self.entries_to_articles(result.get('entries', []))[0:3]:
+                article.site_name = feed.title
+                article.site_url = feed.url
+                articles.append(article)
+            return articles, feed
+        except URLError as e:
+            pass
 
     def entries_to_articles(self, entries):
         result = list()
