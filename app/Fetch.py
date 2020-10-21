@@ -1,6 +1,8 @@
+import logging
+import socket
+from contextlib import contextmanager
 from datetime import datetime
 from typing import Iterable
-from urllib.error import URLError
 
 import feedparser
 from dateutil import parser
@@ -8,6 +10,18 @@ from dateutil import parser
 from app.TempStore import TempStore
 from app.models.FeedParserArticle import FeedParserArticle
 from app.models.FeedParserResource import FeedParserResource
+
+
+@contextmanager
+def other_timeout(timeout):
+    original = socket.getdefaulttimeout()
+    try:
+        yield socket.setdefaulttimeout(timeout)
+    finally:
+        socket.setdefaulttimeout(original)
+
+
+logger = logging.getLogger('Fetch')
 
 
 class Fetch(object):
@@ -20,16 +34,20 @@ class Fetch(object):
         articles = []
         for source in self.sources:
             new_articles, new_feed = self.fetch_source(source)
-            articles.extend(new_articles)
-            feeds.append(new_feed)
+            if new_articles and new_feed:
+                articles.extend(new_articles)
+                feeds.append(new_feed)
         return articles, feeds
 
     @TempStore(dataKey='fetch_source')
     def fetch_source(self, source):
         try:
             articles = list()
-            print("Parse %s" % source)
-            result = feedparser.parse(source)
+            logger.info("Parse %s" % source)
+
+            with other_timeout(10):
+                result = feedparser.parse(source)
+
             feed = FeedParserResource(
                 feed_url=source,
                 url=result['feed']['link'],
@@ -40,8 +58,9 @@ class Fetch(object):
                 article.site_url = feed.url
                 articles.append(article)
             return articles, feed
-        except URLError as e:
-            pass
+        except Exception as e:
+            logger.warning(str(e))
+            return None, None
 
     def entries_to_articles(self, entries):
         result = list()
