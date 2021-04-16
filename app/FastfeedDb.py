@@ -31,3 +31,6 @@ class FastfeedDb:
 
     def clear_all(self):
         self.db.flushall()
+
+    def clear_key(self, key):
+        self.db.delete(key)

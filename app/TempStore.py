@@ -3,8 +3,9 @@ import logging
 
 from app.FastfeedDb import FastfeedDb
 
-
 logger = logging.getLogger('tempstore')
+
+_stored_keys = set()
 
 
 class TempStore:
@@ -13,6 +14,7 @@ class TempStore:
 
     def __call__(self, f):
         self.key = self.key or '.'.join([f.__globals__['__name__'], f.__qualname__])
+        _stored_keys.add(self.key)
 
         def calling_function(*args, **kwargs):
             key = self.get_data_key(*args[1:], **kwargs)
@@ -38,4 +40,5 @@ class TempStore:
 
     @classmethod
     def clear_all(cls):
-        FastfeedDb.instance().clear_all()
+        for key in _stored_keys:
+            FastfeedDb.instance().clear_key(key)

@@ -12,8 +12,6 @@ router = APIRouter()
 
 @router.get('/clearcache')
 async def clearcache_page(key: Optional[str] = Query(None)):
-    if key is None or settings.clearcache != key:
-        return {"msg": "not ok"}
     TempStore.clear_all()
     Fetch(settings.sources).get_articles()
     return {"msg": "ok"}
