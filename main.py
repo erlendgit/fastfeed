@@ -1,4 +1,5 @@
 import locale
+import logging
 
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
@@ -9,6 +10,9 @@ app = FastAPI(docs_url=None)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 locale.setlocale(locale.LC_TIME, 'nl_NL')
+
+logging.basicConfig(level=logging.INFO,
+                    force=True)
 
 
 app.include_router(Home.router)

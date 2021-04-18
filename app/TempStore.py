@@ -14,10 +14,10 @@ class TempStore:
 
     def __call__(self, f):
         self.key = self.key or '.'.join([f.__globals__['__name__'], f.__qualname__])
-        _stored_keys.add(self.key)
 
         def calling_function(*args, **kwargs):
             key = self.get_data_key(*args[1:], **kwargs)
+            _stored_keys.add(key)
             db = FastfeedDb.instance()
             if db.expired(key):
                 logger.debug("MISS - %s" % key)
@@ -41,4 +41,5 @@ class TempStore:
     @classmethod
     def clear_all(cls):
         for key in _stored_keys:
+            logger.info(f"Clear redis key '{key}'")
             FastfeedDb.instance().clear_key(key)

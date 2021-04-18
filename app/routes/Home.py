@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import APIRouter, Request
 from starlette.responses import HTMLResponse
 
@@ -6,6 +8,8 @@ from app.templates import render
 from settings import settings
 
 router = APIRouter()
+
+logger = logging.getLogger(__name__)
 
 
 @router.get('/', response_class=HTMLResponse)
